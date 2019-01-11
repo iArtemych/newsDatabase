@@ -36,7 +36,7 @@ class NewsViewController: UIViewController {
         }
         
         if let date = selectedNews?.itemDate {
-            newsDate.text = "Опубликованно" + date
+            newsDate.text = "Опубликованно: " + date
         } else {
             newsTitle.text = "Error"
         }
@@ -46,7 +46,7 @@ class NewsViewController: UIViewController {
             newsImage.image = UIImage(data: newImageData)
         }
         else {
-            newsImage.image = UIImage(named: "apple1-2")
+            newsImage.image = UIImage(named: "noneIm")
         }
         self.title = newsTitle.text
     }

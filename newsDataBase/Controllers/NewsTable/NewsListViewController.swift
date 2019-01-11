@@ -49,7 +49,7 @@ class NewsListViewController: UIViewController {
             cell.imageNews.image = UIImage(data: newImageData)
         }
         else {
-            cell.imageNews.image = UIImage(named: "apple1-2")
+            cell.imageNews.image = UIImage(named: "noneIm")
         }
 
         return cell
