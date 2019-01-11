@@ -17,6 +17,8 @@ class AddViewController: UIViewController {
     //MARK: - Variables
     var pickedImageProduct = UIImage()
     var newsArr: [NewsItem] = []
+    var editingTextCounter = true
+    var editingTitleCounter = true
     //MARK: - Outlets
     
     @IBOutlet weak var newsTitle: UITextField!
@@ -32,11 +34,14 @@ class AddViewController: UIViewController {
         
         newsDate.text = dateSet()
         imagePicker.delegate = self
+        newsText.delegate = self
+        newsTitle.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
+        //запрос к CoreData
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
@@ -55,8 +60,6 @@ class AddViewController: UIViewController {
         
         nottificationCenterClean()
     }
-    
-    //MARK: - Navigation
     
     //MARK: - Actions
     @IBAction func addImage(_ sender: Any) {
@@ -131,6 +134,7 @@ class AddViewController: UIViewController {
         return df.string(from: date)
     }
     
+    //Алерт на выполнение/ ошибку при работе с бд
     private func finalAlert(title: String, message: String) {
         let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let ok = UIAlertAction(title: "Ок", style: .default, handler: nil)
@@ -139,6 +143,7 @@ class AddViewController: UIViewController {
         present(ac, animated: true, completion: nil)
     }
     
+    //методы работы с клавиатурой
     private func nottificationCenterConfig() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.keyboardWasShown),
@@ -179,7 +184,7 @@ class AddViewController: UIViewController {
 
 extension AddViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     // UIImagePickerControllerDelegate
-
+    // Расширение для работы с библиотекой фото
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
@@ -197,3 +202,19 @@ extension AddViewController: UIImagePickerControllerDelegate, UINavigationContro
         dismiss(animated: true, completion: nil)
     }
 }
+
+extension AddViewController: UITextViewDelegate, UITextFieldDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if editingTextCounter {
+            newsText.text = String()
+            editingTextCounter = false
+        }
+    }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if editingTitleCounter {
+            newsTitle.text = String()
+            editingTitleCounter = false
+        }
+    }
+}
+

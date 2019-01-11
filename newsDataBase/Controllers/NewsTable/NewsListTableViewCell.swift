@@ -10,7 +10,6 @@ import UIKit
 
 class NewsListTableViewCell: UITableViewCell {
 
-
     //MARK: - Outlets
     @IBOutlet weak var maskCellView: UIView!
     @IBOutlet weak var contentCell: UIView!
@@ -27,6 +26,7 @@ class NewsListTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        // конфигурация внешнего вида ячейки
         let radius: CGFloat = 42
         
         maskCellView.layer.cornerRadius = radius

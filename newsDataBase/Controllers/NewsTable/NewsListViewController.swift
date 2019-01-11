@@ -39,6 +39,7 @@ class NewsListViewController: UIViewController {
             print(error.localizedDescription)
         }
     }
+    
      private func configureCell(with indexPathRow:Int, cell:NewsListTableViewCell) -> NewsListTableViewCell {
         let news = newsArr[indexPathRow]
         cell.newsTitle.text = news.itemTitle
@@ -97,7 +98,6 @@ extension NewsListViewController: UITableViewDataSource {
             print("Error: \(error), description \(error.userInfo)")
         }
     }
-    
 }
 
 extension NewsListViewController: UITableViewDelegate {

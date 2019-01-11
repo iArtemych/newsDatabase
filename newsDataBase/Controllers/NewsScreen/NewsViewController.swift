@@ -23,31 +23,26 @@ class NewsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let title = selectedNews?.itemTitle {
-            newsTitle.text = title
-        } else {
-            newsTitle.text = "Error"
-        }
+       screenDataConfig()
+        self.title = newsTitle.text
+    }
+    
+    //MARK: - Private methods
+    //Заполнение экрана новости
+    private func screenDataConfig() {
         
-        if let text = selectedNews?.itemText {
-            newsText.text = text
-        } else {
-            newsTitle.text = "Error"
-        }
-        
-        if let date = selectedNews?.itemDate {
-            newsDate.text = "Опубликованно: " + date
-        } else {
-            newsTitle.text = "Error"
+        guard let title = selectedNews?.itemTitle,
+            let text = selectedNews?.itemText,
+            let date = selectedNews?.itemDate
+            else {
+            return
         }
         
         if let newImageData = selectedNews?.newsImage {
-            
             newsImage.image = UIImage(data: newImageData)
         }
-        else {
-            newsImage.image = UIImage(named: "noneIm")
-        }
-        self.title = newsTitle.text
+        newsTitle.text = title
+        newsText.text = text
+        newsDate.text = "Опубликованно: " + date
     }
 }
